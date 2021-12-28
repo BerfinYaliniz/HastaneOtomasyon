@@ -4,14 +4,20 @@
  */
 package vtys.klinikler;
 
+import static java.lang.Integer.parseInt;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import vtys.MyConnection;
+import vtys.hasta.HastaRandevu;
 
 /**
  *
  * @author Berfin
  */
 public class klinik extends javax.swing.JFrame {
-
+private String value;
     /**
      * Creates new form klinik
      */
@@ -19,6 +25,7 @@ public class klinik extends javax.swing.JFrame {
         initComponents();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,8 +39,9 @@ public class klinik extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -44,7 +52,7 @@ public class klinik extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(482, 364, 252, 88));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(552, 370, 210, 88));
 
         jButton2.setText("Klinik Sil");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -52,59 +60,128 @@ public class klinik extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 361, 243, 94));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 374, 190, 80));
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jTable2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jButton3.setText("Klinik Listele");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 380, 180, 80));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
-                "Klinik Adı"
+                "Klinik İd", "Klinik Adı",
             }
         ));
-        jScrollPane4.setViewportView(jTable2);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jTable1MouseEntered(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 510, 280));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 790, 250));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-           JOptionPane.showMessageDialog(this, "Kliniği silmek istediğinize emin misiniz?");
-               JOptionPane.showMessageDialog(this, "Klinik Silidi");
+   try{
+     MyConnection.baglantiAc();
+            String girissorgusu = "DELETE from klinikler where klinik_id='" +value+"'";
+
+            Statement st = MyConnection.baglan.createStatement();
+            int rs = st.executeUpdate(girissorgusu);
+           
+      JOptionPane.showMessageDialog(this, "Kliniği silmek istediğinize emin misiniz?");
+        JOptionPane.showMessageDialog(this, "Klinik Silindi");
+  MyConnection.baglantiKapat(); } 
+   catch(Exception e){
        
+   }
+        System.out.println(value);
+     
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        klinikEkle ekle = new klinikEkle();
+        this.hide();
+        ekle.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+            MyConnection.baglantiAc();
+            String girissorgusu = "SELECT * from klinikler ";
+
+            Statement st = MyConnection.baglan.createStatement();
+            ResultSet rs = st.executeQuery(girissorgusu);
+
+            while (rs.next()) {
+
+                String klinik_id = String.valueOf(rs.getInt("klinik_id"));
+                String klinik_adi = rs.getString("klinik_adi");
+
+                String tbData[] = {klinik_id, klinik_adi};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+
+                tblModel.addRow(tbData);
+
+            }
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+           
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTable1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseEntered
+
+    }//GEN-LAST:event_jTable1MouseEntered
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int column = 0;
+int row = jTable1.getSelectedRow();
+value = jTable1.getModel().getValueAt(row, column).toString();
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
     public static void main(String args[]) {
-        
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(klinik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(klinik.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(klinik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(klinik.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(klinik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(klinik.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(klinik.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(klinik.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -119,9 +196,10 @@ public class klinik extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
