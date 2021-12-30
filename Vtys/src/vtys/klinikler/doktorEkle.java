@@ -1,10 +1,14 @@
-
 package vtys.klinikler;
 
+import static java.lang.Integer.parseInt;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import vtys.MyConnection;
+import vtys.hasta.randevuAl;
 
 /**
  *
@@ -12,28 +16,50 @@ import vtys.MyConnection;
  */
 public class doktorEkle extends javax.swing.JFrame {
 
+    String klinik_id;
+
     public doktorEkle() {
         initComponents();
-    }
-    public void doktorEkle() {
-        String tc,doktorad,doktorsoyad,doktorparola;
-       
-		doktorad = jTextField2.getText();
-		doktorsoyad = jTextField5.getText();
-		doktorparola = jPasswordField1.getText();
 
-        
-		String eklesorgusu = "INSERT INTO doktorlar (doktor_adi,doktor_soyadi,doktor_parola) values ('" + doktorad+ "','" + doktorsoyad  + "','" + doktorparola + "')";
-		try {
-			Statement sta = MyConnection.baglan.createStatement();
-			sta.execute(eklesorgusu);
-                        
-			System.out.println("Veritabanýna Kayýt Baþarý Ýle Eklendi...");
-			       JOptionPane.showMessageDialog(this, "Kaydınız başarılı bir şekilde gerçekleşmiştir."); //Kayýt baþarýlý olduðunda verilecek mesaj kutusu}
-		} catch (SQLException e) { //Veritabanýna kayýt eklenmediði zaman hata mesajý
-			System.out.println(e.toString());
-			System.out.println("Veritabanýna Kayýt Eklenemedi...");
-		}
+        try {
+            MyConnection.baglantiAc();
+            String girissorgusu = "SELECT klinik_adi from klinikler ";
+
+            Statement st = MyConnection.baglan.createStatement();
+            ResultSet rs = st.executeQuery(girissorgusu);
+
+            while (rs.next()) {
+
+                String klinik_adi = rs.getString("klinik_adi");
+                jComboBox1.addItem(klinik_adi);
+
+            }
+
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+    }
+
+    public void doktorEkle() {
+        String tc, doktorad, doktorsoyad, doktorparola, klinikadi;
+
+        doktorad = jTextField2.getText();
+        doktorsoyad = jTextField6.getText();
+        doktorparola = jPasswordField1.getText();
+
+        String eklesorgusu = "INSERT INTO doktorlar (doktor_adi,doktor_soyadi,doktor_parola,klinik_id) values ('" + doktorad + "','" + doktorsoyad + "','" + doktorparola + "','" + klinik_id + "')";
+        try {
+            Statement sta = MyConnection.baglan.createStatement();
+            sta.execute(eklesorgusu);
+
+            System.out.println("Veritabanýna Kayýt Baþarý Ýle Eklendi...");
+            JOptionPane.showMessageDialog(this, "Kaydınız başarılı bir şekilde gerçekleşmiştir."); //Kayýt baþarýlý olduðunda verilecek mesaj kutusu}
+        } catch (SQLException e) { //Veritabanýna kayýt eklenmediði zaman hata mesajý
+            System.out.println(e.toString());
+            System.out.println("Veritabanýna Kayýt Eklenemedi...");
+        }
     }
 
     /**
@@ -46,7 +72,6 @@ public class doktorEkle extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField2 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -54,18 +79,15 @@ public class doktorEkle extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
             }
         });
 
@@ -93,54 +115,80 @@ public class doktorEkle extends javax.swing.JFrame {
         });
 
         jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Klinik Adı");
+
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {  }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 270, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(32, 32, 32))
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(462, 462, 462)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(415, 415, 415)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(380, 380, 380)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(406, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
+                .addGap(24, 24, 24)
+                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,52 +198,67 @@ public class doktorEkle extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      this.hide();
-      Anasayfa ana=new Anasayfa();
-      ana.show();
+        this.hide();
+        Anasayfa ana = new Anasayfa();
+        ana.show();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MyConnection.baglantiAc();
-     
-		 String tc,doktorad,doktorsoyad,doktorparola;
-       
-		doktorad = jTextField2.getText();
-		doktorsoyad = jTextField5.getText();
-		doktorparola = jPasswordField1.getText();
 
-				  if(doktorad.equals(""))
-			        {
-			            JOptionPane.showMessageDialog(null, "Ad  alanı boş bırakılamaz!");
-			        }
-			        
-			        else if(doktorsoyad.equals(""))
-			        {
-			            JOptionPane.showMessageDialog(null, "Lütfen soyadınızı girin!");
-			        }
-			         else if(doktorparola.equals(""))
-			        {
-			            JOptionPane.showMessageDialog(null, "parola alanı boş bırakılamaz!");
-			        } 
-                                 
-			      
-			        else {
-   
-      
-      doktorEkle();
+        String tc, doktorad, doktorsoyad, doktorparola;
 
-      this.hide();
-      Anasayfa giris=new Anasayfa();
-      giris.show();
-      MyConnection.baglantiKapat();}
-			
-                                    
+        doktorad = jTextField2.getText();
+        doktorsoyad = jTextField6.getText();
+        doktorparola = jPasswordField1.getText();
+
+        if (doktorad.equals("")) {
+            JOptionPane.showMessageDialog(null, "Ad  alanı boş bırakılamaz!");
+        } else if (doktorsoyad.equals("")) {
+            JOptionPane.showMessageDialog(null, "Lütfen soyadınızı girin!");
+        } else if (doktorparola.equals("")) {
+            JOptionPane.showMessageDialog(null, "parola alanı boş bırakılamaz!");
+        } else {
+
+            doktorEkle();
+
+            this.hide();
+            Anasayfa giris = new Anasayfa();
+            giris.show();
+            MyConnection.baglantiKapat();
+        }
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String a = (String) jComboBox1.getSelectedItem();
+        String sorgu = "SELECT klinik_id from klinikler where klinik_adi='" + a + "'";
+        MyConnection.baglantiAc();
+        Statement st;
+
+        try {
+            st = MyConnection.baglan.createStatement();
+            ResultSet rs = st.executeQuery(sorgu);
+             while (rs.next()) {
+
+                klinik_id = rs.getString("klinik_id");
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(randevuAl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,13 +277,13 @@ public class doktorEkle extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(doktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(doktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(doktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(doktorEkle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -235,12 +298,14 @@ public class doktorEkle extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

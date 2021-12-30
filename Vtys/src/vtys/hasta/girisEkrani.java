@@ -1,6 +1,6 @@
-
 package vtys.hasta;
 
+import static java.lang.Integer.parseInt;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,11 +8,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vtys.MyConnection;
 import vtys.klinikler.Anasayfa;
+
 /**
  *
  * @author Berfin
  */
 public class girisEkrani extends javax.swing.JFrame {
+
+   public static int user_id;
+   
+   public int getUserId(){
+       return user_id;
+   }
 
     /**
      * Creates new form girisEkrani
@@ -21,40 +28,39 @@ public class girisEkrani extends javax.swing.JFrame {
         initComponents();
     }
 
-	public void giris() throws SQLException // Kayýt eklemek için kullandýðým metod
-	{
-                        char[] input = jPasswordField1.getPassword();
-    String passString = new String(input);  
-		String  email, sifre;
-		email = jTextField1.getText();
-		sifre = jPasswordField1.getText();
+    public void giris() throws SQLException // Kayýt eklemek için kullandýðým metod
+    {
+        char[] input = jPasswordField1.getPassword();
+        String passString = new String(input);
+        String email, sifre;
+        email = jTextField1.getText();
+        sifre = jPasswordField1.getText();
 
-		String girissorgusu = "SELECT * from hastalar where hasta_TC='" + email + "' && hasta_parola='" + sifre + "'"; //veritabanýndan giriþ ekraný bilgilerini çekmek için
-		
-			Statement st = MyConnection.baglan.createStatement();
-			ResultSet rs=st.executeQuery(girissorgusu);
-			
-			if(rs.next()) { // giriþ bilgileri boþ deðilse anasayfaya yönlendirir.
-				
-				HastaRandevu hpage=new HastaRandevu();
-				hpage.show();
-                                this.hide();
-			}
-                        else if((jTextField1.getText().equalsIgnoreCase("admin"))&&(passString.equals("123")))
-                        {
-                            Anasayfa ana_ekran = new Anasayfa();
-                           ana_ekran.setVisible(true);
-                           setVisible(false);
-                        }
-			else {
-				JOptionPane.showMessageDialog(this, "Kimlik numarası ya da şifre yanlış"); //giriþ bilgileri yanlýþ girildiðinde dönecek mesaj kutusu
-				jTextField1.setText("");
-				jPasswordField1.setText("");
-			}
+        String girissorgusu = "SELECT hasta_id from hastalar where hasta_TC='" + email + "' && hasta_parola='" + sifre + "'"; //veritabanýndan giriþ ekraný bilgilerini çekmek için
 
-			
-}
-    
+        Statement st = MyConnection.baglan.createStatement();
+        ResultSet rs = st.executeQuery(girissorgusu);
+
+        if (rs.next()) { // giriþ bilgileri boþ deðilse anasayfaya yönlendirir.
+            String hasta_id = String.valueOf(rs.getInt("hasta_id"));
+            
+            this.user_id = parseInt(hasta_id);
+            
+            HastaRandevu hpage = new HastaRandevu();
+            hpage.show();
+            this.hide();
+        } else if ((jTextField1.getText().equalsIgnoreCase("admin")) && (passString.equals("123"))) {
+            Anasayfa ana_ekran = new Anasayfa();
+            ana_ekran.setVisible(true);
+            setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Kimlik numarası ya da şifre yanlış"); //giriþ bilgileri yanlýþ girildiðinde dönecek mesaj kutusu
+            jTextField1.setText("");
+            jPasswordField1.setText("");
+        }
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,22 +154,22 @@ public class girisEkrani extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       MyConnection.baglantiAc();
-       
-				try {
-					giris();
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				MyConnection.baglantiKapat();
-			
+        MyConnection.baglantiAc();
+
+        try {
+            giris();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        MyConnection.baglantiKapat();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     kayitEkrani kayit=new kayitEkrani();
-     this.hide();
-     kayit.show();
-     
+        kayitEkrani kayit = new kayitEkrani();
+        this.hide();
+        kayit.show();
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -195,18 +201,17 @@ public class girisEkrani extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-           	
-			public void run() {
-				try {
-					girisEkrani frame = new girisEkrani();
-					frame.setVisible(true);
-                                 
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+
+            public void run() {
+                try {
+                    girisEkrani frame = new girisEkrani();
+                    frame.setVisible(true);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
@@ -220,5 +225,4 @@ public class girisEkrani extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 
-	
 }

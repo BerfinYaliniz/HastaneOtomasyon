@@ -4,12 +4,20 @@
  */
 package vtys.hasta;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import vtys.MyConnection;
 import vtys.klinikler.Anasayfa;
+import java.util.Date;
+import javax.swing.JTextField;
 
 /**
  *
@@ -17,15 +25,39 @@ import vtys.klinikler.Anasayfa;
  */
 public class randevuAl extends javax.swing.JFrame {
 
+    String klinik_id;
+    String doktor_id;    
+
     /**
      * Creates new form randevuAl
      */
     public randevuAl() {
         initComponents();
+        try {
+            MyConnection.baglantiAc();
+            String girissorgusu = "SELECT klinik_adi from klinikler ";
+
+            Statement st = MyConnection.baglan.createStatement();
+            ResultSet rs = st.executeQuery(girissorgusu);
+
+            while (rs.next()) {
+
+                String klinik_adi = rs.getString("klinik_adi");
+                jComboBox4.addItem(klinik_adi);
+
+            }
+
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+
     }
-    public void randevuAl(){
-       
-}
+
+    public void randevuAl() {
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,18 +78,20 @@ public class randevuAl extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox5 = new javax.swing.JComboBox<>();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+            "9.30","10.00","11.00","11.30","12.00","12.30","13.00","13.30","14.00"
+        }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
@@ -68,7 +102,7 @@ public class randevuAl extends javax.swing.JFrame {
 
         jLabel2.setText("Doktor");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dahiliye", "Diş", "Göz", "Kardiyoloji" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
         jComboBox4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
@@ -95,12 +129,9 @@ public class randevuAl extends javax.swing.JFrame {
 
         jLabel6.setText("Klinik");
 
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox5ActionPerformed(evt);
-            }
-        });
+        Date firstDate = new Date(30,12,4567);
+        jDateChooser1.setDate(firstDate);
+        jDateChooser1.setDateFormatString("dd.MM.yyyy");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,8 +140,6 @@ public class randevuAl extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(258, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -121,15 +150,20 @@ public class randevuAl extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(57, 57, 57)
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(302, 302, 302)))))
+                            .addGap(302, 302, 302)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(255, 255, 255)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBox1, 0, 328, Short.MAX_VALUE)
+                    .addComponent(jComboBox3, 0, 328, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -145,15 +179,15 @@ public class randevuAl extends javax.swing.JFrame {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,38 +202,86 @@ public class randevuAl extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
- 
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
-     
+        String a = (String) jComboBox4.getSelectedItem();
+        String sorgu = "SELECT klinik_id from klinikler where klinik_adi='" + a + "'";
+        MyConnection.baglantiAc();
+        Statement st;
+
+        jComboBox3.removeAllItems();
+
+        try {
+            st = MyConnection.baglan.createStatement();
+            ResultSet rs = st.executeQuery(sorgu);
+
+            while (rs.next()) {
+
+                klinik_id = rs.getString("klinik_id");
+
+            }
+
+            System.out.println(klinik_id);
+            String doktorsorgu = "SELECT doktor_adi, doktor_soyadi,doktor_id from doktorlar where klinik_id='" + klinik_id + "'";
+
+            st = MyConnection.baglan.createStatement();
+            rs = st.executeQuery(doktorsorgu);
+
+            while (rs.next()) {
+
+                String doktor_adi = rs.getString("doktor_adi");
+                String doktor_soyadi = rs.getString("doktor_soyadi");
+         doktor_id = rs.getString("doktor_id");
+                jComboBox3.addItem(doktor_adi + " " + doktor_soyadi);
+
+            }
+            DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+            System.out.println(df.format(jDateChooser1.getDate()));
+        } catch (SQLException ex) {
+            Logger.getLogger(randevuAl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jComboBox4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-this.hide();
-HastaRandevu ran=new HastaRandevu();
-ran.show();
+        this.hide();
+        HastaRandevu ran = new HastaRandevu();
+        ran.show();
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       HastaRandevu hasta=new HastaRandevu();
-       JOptionPane.showMessageDialog(this, "Randevunuz başarılı bir şekilde oluşturulmuşur.");
        
-       hasta.show();
-       this.hide();
-               
-    }//GEN-LAST:event_jButton2ActionPerformed
+             try {
+            MyConnection.baglantiAc();
+            String hasta_id=String.valueOf(girisEkrani.user_id);
+          		String eklesorgusu = "INSERT INTO randevular (doktor_id,hasta_id,randevu_tarih,randevu_saat) values ('"
+				+ doktor_id + "','" + hasta_id + "','" +  ((JTextField)jDateChooser1.getDateEditor().getUiComponent()).getText() + "','" + jComboBox1.getSelectedItem().toString()  + "')";
 
-    private void jComboBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox5ActionPerformed
-       setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-     
-    }//GEN-LAST:event_jComboBox5ActionPerformed
+            Statement st = MyConnection.baglan.createStatement();
+                 int rs = st.executeUpdate(eklesorgusu);
+
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+           
+        }
+        
+        
+        HastaRandevu hasta = new HastaRandevu();
+        JOptionPane.showMessageDialog(this, "Randevunuz başarılı bir şekilde oluşturulmuşur.");
+
+        hasta.show();
+        this.hide();
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,7 +324,7 @@ ran.show();
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

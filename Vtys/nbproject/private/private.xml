@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/klinikler/doktorEkle.java</file>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/hasta/randevuAl.java</file>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/hasta/randevuBilgi.java</file>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/hasta/girisEkrani.java</file>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/klinikler/DoktorIslemleri.java</file>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/klinikler/klinik.java</file>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/hasta/RandevuGüncelle.java</file>
+            <file>file:/C:/Users/Berfin/Documents/NetBeansProjects/Vtys/src/vtys/hasta/HastaRandevu.java</file>
+        </group>
     </open-files>
 </project-private>

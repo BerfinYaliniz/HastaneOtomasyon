@@ -15,7 +15,9 @@ import vtys.MyConnection;
  * @author Berfin
  */
 public class DoktorIslemleri extends javax.swing.JFrame {
-private String value;
+
+    private String value;
+
     /**
      * Creates new form DoktorIslemleri
      */
@@ -40,6 +42,7 @@ private String value;
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,7 +79,7 @@ private String value;
 
             },
             new String [] {
-                "Doktor Id", "Doktor Adı", "Doktor Soyadı"
+                "Doktor Id", "Doktor Adı", "Doktor Soyadı", "Klinik"
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -94,95 +97,111 @@ private String value;
             }
         });
 
+        jButton5.setText("Geri");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(348, Short.MAX_VALUE)
+                .addGap(196, 196, 196)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(173, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addGap(199, 199, 199))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(50, 50, 50)
                         .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton4))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(215, 215, 215)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(392, Short.MAX_VALUE))
+                        .addGap(66, 66, 66)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(jButton4)
+                        .addGap(253, 253, 253))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(506, 506, 506))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(120, 120, 120))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(426, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton5)
+                .addGap(168, 168, 168))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-doktorGuncelle gun=new doktorGuncelle();
-this.hide();
-gun.show();
+        doktorGuncelle gun = new doktorGuncelle();
+        this.hide();
+        gun.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
- try{
-     MyConnection.baglantiAc();
-            String girissorgusu = "DELETE from doktorlar where doktor_id='" +value+"'";
+        try {
+            MyConnection.baglantiAc();
+            String girissorgusu = "DELETE from doktorlar where doktor_id='" + value + "'";
 
             Statement st = MyConnection.baglan.createStatement();
             int rs = st.executeUpdate(girissorgusu);
-           
-      JOptionPane.showMessageDialog(this, "Doktoru silmek istediğinize emin misiniz?");
-        JOptionPane.showMessageDialog(this, "Doktor Silindi");
-  MyConnection.baglantiKapat(); } 
-   catch(Exception e){
-       
-   }
+
+            JOptionPane.showMessageDialog(this, "Doktoru silmek istediğinize emin misiniz?");
+            JOptionPane.showMessageDialog(this, "Doktor Silindi");
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+
+        }
         System.out.println(value);
-     
-                            
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-doktorEkle ekle=new doktorEkle();
-this.hide();
-ekle.show();// TODO add your handling code here:
+        doktorEkle ekle = new doktorEkle();
+        this.hide();
+        ekle.show();// TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-       try {
+        try {
             MyConnection.baglantiAc();
-            String girissorgusu = "SELECT * from doktorlar ";
+            String girissorgusu = "SELECT doktor_id, doktor_adi, doktor_soyadi,klinik_adi from doktorlar inner join klinikler on doktorlar.klinik_id = klinikler.klinik_id ";
 
             Statement st = MyConnection.baglan.createStatement();
             ResultSet rs = st.executeQuery(girissorgusu);
-
+            DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+            tblModel.getDataVector().removeAllElements();
+            tblModel.fireTableDataChanged();
             while (rs.next()) {
 
+                String klinik_adi = rs.getString("klinik_adi");
                 String doktor_id = String.valueOf(rs.getInt("doktor_id"));
                 String doktor_adi = rs.getString("doktor_adi");
-                 String doktor_soyadi = rs.getString("doktor_soyadi");
+                String doktor_soyadi = rs.getString("doktor_soyadi");
 
-                String tbData[] = {doktor_id, doktor_adi,doktor_soyadi};
-                DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+                String tbData[] = {doktor_id, doktor_adi, doktor_soyadi,klinik_adi};
+                tblModel = (DefaultTableModel) jTable1.getModel();
 
                 tblModel.addRow(tbData);
 
@@ -190,15 +209,21 @@ ekle.show();// TODO add your handling code here:
             MyConnection.baglantiKapat();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-           
+
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int column = 0;
-int row = jTable1.getSelectedRow();
-value = jTable1.getModel().getValueAt(row, column).toString();
+        int row = jTable1.getSelectedRow();
+        value = jTable1.getModel().getValueAt(row, column).toString();
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+   Anasayfa ana=new Anasayfa();
+   ana.show();
+   this.hide();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,6 +265,7 @@ value = jTable1.getModel().getValueAt(row, column).toString();
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

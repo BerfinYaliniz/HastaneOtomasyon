@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package vtys.klinikler;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +18,9 @@ import vtys.MyConnection;
  * @author Berfin
  */
 public class doktorGuncelle extends javax.swing.JFrame {
-private String value ;
+
+    private String value;
+
     /**
      * Creates new form doktorGuncelle
      */
@@ -49,16 +52,16 @@ private String value ;
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"df", "df", "54", "4"},
 
             },
             new String [] {
-                "Doktor Id", "Doktor Adı", "Doktor Soyadı", "Klinik Id","Doktor Parola"
+                "Doktor Id", "Doktor Adı", "Doktor Soyadı", "Klinik Id","Doktor Parola",
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -125,6 +128,13 @@ private String value ;
             }
         });
 
+        jButton3.setText("Geri");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -146,11 +156,13 @@ private String value ;
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(61, Short.MAX_VALUE)
+                        .addContainerGap(83, Short.MAX_VALUE)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1)
-                        .addGap(106, 106, 106)))
+                        .addGap(11, 11, 11)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104))
             .addGroup(layout.createSequentialGroup()
@@ -188,7 +200,8 @@ private String value ;
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jButton2)))
+                            .addComponent(jButton2)
+                            .addComponent(jButton3)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -197,14 +210,14 @@ private String value ;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-       int selectedRow =jTable1.getSelectedRow();
-        DefaultTableModel model= (DefaultTableModel)jTable1.getModel();
-        jTextField1.setText(model.getValueAt(selectedRow,0).toString());
-        jTextField3.setText(model.getValueAt(selectedRow,1).toString());
-        jTextField4.setText(model.getValueAt(selectedRow,2).toString());
-        jTextField5.setText(model.getValueAt(selectedRow,3).toString());
-        jTextField2.setText(model.getValueAt(selectedRow,4).toString());
-        value=model.getValueAt(selectedRow,0).toString();
+        int selectedRow = jTable1.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        jTextField1.setText(model.getValueAt(selectedRow, 0).toString());
+        jTextField3.setText(model.getValueAt(selectedRow, 1).toString());
+        jTextField4.setText(model.getValueAt(selectedRow, 2).toString());
+        jTextField5.setText(model.getValueAt(selectedRow, 3).toString());
+        jTextField2.setText(model.getValueAt(selectedRow, 4).toString());
+        value = model.getValueAt(selectedRow, 0).toString();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -228,34 +241,69 @@ private String value ;
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         int i = jTable1.getSelectedRow();
-         DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
-        if(i >= 0)
-        {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        if (i >= 0) {
             model.setValueAt(jTextField1.getText(), i, 0);
             model.setValueAt(jTextField3.getText(), i, 1);
             model.setValueAt(jTextField4.getText(), i, 2);
             model.setValueAt(jTextField5.getText(), i, 3);
-             model.setValueAt(jTextField2.getText(), i, 4);
-        String girissorgusu = "UPDATE doktorlar SET doktor_id='" + jTextField1.getText() + "' ,doktor_adi='" + jTextField3.getText() + "', doktor_soyadi='"+jTextField4.getText()+"', klinik_id='"+jTextField5.getText()+"',doktor_parola='"+jTextField5.getText()+"'where doktor_id='"+jTextField1.getText()+"'"; //veritabanýndan giriþ ekraný bilgilerini çekmek için
-		
-			Statement st = null;
-            try {  MyConnection.baglantiAc();
+            model.setValueAt(jTextField2.getText(), i, 4);
+            String girissorgusu = "UPDATE doktorlar SET doktor_id='" + jTextField1.getText() + "' ,doktor_adi='" + jTextField3.getText() + "', doktor_soyadi='" + jTextField4.getText() + "', klinik_id='" + jTextField5.getText() + "',doktor_parola='" + jTextField5.getText() + "'where doktor_id='" + jTextField1.getText() + "'"; //veritabanýndan giriþ ekraný bilgilerini çekmek için
+
+            Statement st = null;
+            try {
+                MyConnection.baglantiAc();
                 st = MyConnection.baglan.createStatement();
-                int rs=st.executeUpdate(girissorgusu);
+                int rs = st.executeUpdate(girissorgusu);
             } catch (SQLException ex) {
                 Logger.getLogger(doktorGuncelle.class.getName()).log(Level.SEVERE, null, ex);
-            }  
-        }else{
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "Error");
-        }  MyConnection.baglantiKapat();
-     
+        }
+        MyConnection.baglantiKapat();
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        try {
+            MyConnection.baglantiAc();
+            String girissorgusu = "SELECT * from doktorlar ";
+
+            Statement st = MyConnection.baglan.createStatement();
+            ResultSet rs = st.executeQuery(girissorgusu);
+
+            DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+            tblModel.getDataVector().removeAllElements();
+            tblModel.fireTableDataChanged();
+            while (rs.next()) {
+
+                String doktor_id = String.valueOf(rs.getInt("doktor_id"));
+                String doktor_adi = rs.getString("doktor_adi");
+                String doktor_soyadi = rs.getString("doktor_soyadi");
+                String klinik_id = String.valueOf(rs.getInt("klinik_id"));
+                String doktor_parola = rs.getString("doktor_parola");
+
+                String tbData[] = {doktor_id, doktor_adi, doktor_soyadi, klinik_id, doktor_parola};
+                // DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+
+                tblModel.addRow(tbData);
+
+            }
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+DoktorIslemleri doktor=new DoktorIslemleri();
+doktor.show();
+this.hide();// TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,6 +343,7 @@ private String value ;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

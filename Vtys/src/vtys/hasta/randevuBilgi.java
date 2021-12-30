@@ -4,10 +4,12 @@
  */
 package vtys.hasta;
 
+import static java.lang.Integer.parseInt;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import vtys.MyConnection;
 
 /**
@@ -16,23 +18,28 @@ import vtys.MyConnection;
  */
 public class randevuBilgi extends javax.swing.JFrame {
 
+    public int hastaid;
+    public int randevu_id;
+
     /**
      * Creates new form randevuBilgi
      */
     public randevuBilgi() {
         initComponents();
     }
-public void randevuSil() throws SQLException{
- 
-}
-public void randevuListele(){
-    
-}
 
-public void randevuGuncelle(){
-    
-    
-}
+    public void randevuSil() throws SQLException {
+
+    }
+
+    public void randevuListele() {
+
+    }
+
+    public void randevuGuncelle() {
+
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +53,9 @@ public void randevuGuncelle(){
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,59 +83,149 @@ public void randevuGuncelle(){
             }
         });
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Randevu İd","Klinik Adı", "Hasta Adı", "Hasta Soyadı", "Doktor Adı","Doktor Soyadı","Saat","Tarih"
+            }
+        ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton4.setText("Randevuları Listele");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(246, 246, 246)
+                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(202, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(155, 155, 155))
+                        .addComponent(jButton3)
+                        .addGap(181, 181, 181))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(94, 94, 94)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(190, 190, 190))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(350, 350, 350))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(208, 208, 208))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 193, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addComponent(jButton3)
-                .addGap(42, 42, 42))
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       JOptionPane.showMessageDialog(this, "Randevunuzu iptal etmek istediğinize emin misiniz?");
-       this.hide();
-       HastaRandevu ran=new HastaRandevu();
-       ran.show();
+        try {
+            MyConnection.baglantiAc();
+            String girissorgusu = "DELETE from randevular where randevu_id='" + randevu_id + "'";
+
+            Statement st = MyConnection.baglan.createStatement();
+            int rs = st.executeUpdate(girissorgusu);
+
+            JOptionPane.showMessageDialog(this, "Randevu Silindi");
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+
+        }
+
+        HastaRandevu ran = new HastaRandevu();
+        ran.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-   
-        randevuGuncelle();
+randevuGuncelle ran=new randevuGuncelle();
+       this.hide();
+       ran.show();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-this.hide();
-HastaRandevu hasta=new HastaRandevu();
-hasta.show();
+       
+        HastaRandevu hasta = new HastaRandevu();
+        hasta.show(); 
+        this.hide();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try {
+
+            // girisEkrani ge = new girisEkrani();
+            hastaid = girisEkrani.user_id;
+
+            MyConnection.baglantiAc();
+            String girissorgusu = "SELECT randevu_id,doktor_adi,doktor_soyadi,klinik_adi,randevu_saat,randevu_tarih,hasta_adi,hasta_soyadi from randevular inner join doktorlar on randevular.doktor_id=doktorlar.doktor_id "
+                    + "INNER JOIN hastalar on randevular.hasta_id=hastalar.hasta_id"
+                    + " INNER JOIN klinikler on klinikler.klinik_id=doktorlar.klinik_id where randevular.hasta_id='" + hastaid + "'";
+
+            System.out.println(hastaid);
+            Statement st = MyConnection.baglan.createStatement();
+            ResultSet rs = st.executeQuery(girissorgusu);
+
+            DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+            tblModel.getDataVector().removeAllElements();
+            tblModel.fireTableDataChanged();
+            while (rs.next()) {
+                String randevu_id = rs.getString("randevu_id");
+                String klinik_adi = rs.getString("klinik_adi");
+                String doktor_adi = rs.getString("doktor_adi");
+                String doktor_soyadi = rs.getString("doktor_soyadi");
+                String hasta_adi = rs.getString("hasta_adi");
+                String hasta_soyadi = rs.getString("hasta_soyadi");
+                String randevu_tarih = rs.getString("randevu_tarih");
+                String randevu_saat = rs.getString("randevu_saat");
+
+                String tbData[] = {randevu_id,klinik_adi, hasta_adi, hasta_soyadi, doktor_adi, doktor_soyadi, randevu_tarih, randevu_saat};
+                // DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+
+                tblModel.addRow(tbData);
+
+            }
+            MyConnection.baglantiKapat();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int column = 0;
+        int row = jTable1.getSelectedRow();
+        randevu_id = parseInt(jTable1.getModel().getValueAt(row, column).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -158,7 +258,7 @@ hasta.show();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new randevuBilgi().setVisible(true);
-               
+
             }
         });
     }
@@ -167,6 +267,9 @@ hasta.show();
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
