@@ -39,7 +39,7 @@ CREATE TABLE `hastalar` (
 
 LOCK TABLES `hastalar` WRITE;
 /*!40000 ALTER TABLE `hastalar` DISABLE KEYS */;
-INSERT INTO `hastalar` VALUES (1,'Osman','Kalaycı','1','05437154263','1'),(2,'Nisan','Hakan','12121212121','05326325689','73256983'),(3,'Avni','Didem','44444444444','05632365214','dsfsdf'),(4,'Avni','Didem','44444444444','05632365214','dsfsdf'),(5,'berfin','yalınız','64504266125','45343654534','3413513'),(6,'berfin','ghjgg','64504266125','45343654534','3413513'),(7,'','','','','jPasswordField1');
+INSERT INTO `hastalar` VALUES (1,'Osman','Kalaycı','1','05437154263','1'),(2,'Nisan','Hakan','12121212121','05326325689','73256983'),(3,'Avni','Didem','44444444444','05632365214','dsfsdf'),(4,'Avni','Didem','44444444444','05632365214','dsfsdf');
 /*!40000 ALTER TABLE `hastalar` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31  1:39:47
+-- Dump completed on 2022-01-01 21:03:09

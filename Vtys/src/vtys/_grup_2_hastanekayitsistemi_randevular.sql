@@ -29,7 +29,7 @@ CREATE TABLE `randevular` (
   `randevu_tarih` varchar(10) DEFAULT NULL,
   `randevu_saat` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`randevu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `randevular` (
 
 LOCK TABLES `randevular` WRITE;
 /*!40000 ALTER TABLE `randevular` DISABLE KEYS */;
-INSERT INTO `randevular` VALUES (2,2,1,'23.12.2022','12.30'),(3,2,1,'12.06.2021','12.02'),(4,2,0,'dd.MM.yyyy','9.30'),(5,5,1,'02.12.2021','9.30'),(7,5,1,'18.07.1943','13.30'),(8,5,1,'07.07.2021','11.00');
+INSERT INTO `randevular` VALUES (5,5,1,'02.12.2021','9.30'),(7,5,1,'18.07.1943','13.30'),(8,5,1,'07.07.2021','11.00'),(9,5,3,'02.12.2021','9.31'),(20,5,1,'07.07.2021','11.01');
 /*!40000 ALTER TABLE `randevular` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31  1:39:47
+-- Dump completed on 2022-01-01 21:03:09

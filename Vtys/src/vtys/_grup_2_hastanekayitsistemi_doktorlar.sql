@@ -38,7 +38,7 @@ CREATE TABLE `doktorlar` (
 
 LOCK TABLES `doktorlar` WRITE;
 /*!40000 ALTER TABLE `doktorlar` DISABLE KEYS */;
-INSERT INTO `doktorlar` VALUES (2,'Mustafa','Gündoğan','3','123456'),(5,'Deniz','Delidalga','1','41256987'),(11,'Ali','ayse','0','0'),(12,'Kevsernur','Erginsu','6','6'),(13,'Berfin','Endodonti','8','benmalim'),(14,'Hasan','Algoloji','8','asdsad'),(17,'gg','Algoloji','1','12345'),(18,'ad','soyad','5','123'),(19,'reyhan','yeter','null','121432'),(20,'Numan','Gergin','null','fdfghhmgh'),(21,'Bub','G','null','dsgbgdh'),(22,'Hatice','tıklama','null','asdasd'),(23,'Nisa','Gün','null','13213123'),(24,'Resul','Dindar','11','jejejejej');
+INSERT INTO `doktorlar` VALUES (5,'Deniz','Delidalga','1','41256987'),(11,'Ali','ayse','0','0'),(12,'Kevsernur','Erginsu','6','6'),(13,'Berfin','Endodonti','8','benmalim'),(14,'Hasan','Algoloji','8','asdsad'),(18,'ad','soyad','5','123'),(19,'reyhan','yeter','null','121432'),(20,'Numan','Gergin','null','fdfghhmgh'),(21,'Bub','G','null','dsgbgdh'),(22,'Hatice','tıklama','null','asdasd'),(23,'Nisa','Gün','null','13213123'),(24,'Resul','Dindar','11','jejejejej');
 /*!40000 ALTER TABLE `doktorlar` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-31  1:39:47
+-- Dump completed on 2022-01-01 21:03:09
